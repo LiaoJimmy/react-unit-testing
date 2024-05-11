@@ -1,8 +1,6 @@
-import React from 'react';
-import HomePage from './components/Home/HomePage';
-// import './App.css'
+import HomePage from './components/HomePage';
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <div id="App">
       <HomePage />
