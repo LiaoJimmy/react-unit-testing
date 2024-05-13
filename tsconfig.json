@@ -17,15 +17,19 @@
     "resolveJsonModule": true,
     "paths": {
       "@/*": ["./src/*"],
-    }
+    },
+    "types": ["node", "jest", "@testing-library/jest-dom"],
   },
   "include": [
-    "src/**/*"
-  ],
+    "src/**/*",
+    "__tests__/**/*",
+    "jest.config.js",
+    "jest.setup.js"
+ ],
   "exclude": [
     "./node_modules",
     "./build",
     "./dist",
     "./.vscode"
-  ]
+  ],
 }
