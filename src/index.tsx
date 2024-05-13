@@ -8,6 +8,9 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import './i18n';
+import createMirageServer from '../__mocks__/MirageServer';
+
+createMirageServer();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

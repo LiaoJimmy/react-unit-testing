@@ -5,9 +5,11 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import '@/i18n';
+import createMirageServer from '../__mocks__/MirageServer';
 
 import React from 'react';
 window.React = React;
+createMirageServer();
 
 const preview: Preview = {
   parameters: {
