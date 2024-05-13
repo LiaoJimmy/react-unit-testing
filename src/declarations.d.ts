@@ -1,5 +1,5 @@
 // Declare png module
-declare module '*.png'
+declare module '*.png';
 
 // Declare svg module
-declare module '*.svg'
+declare module '*.svg';

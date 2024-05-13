@@ -1,5 +1,8 @@
 import type { Preview } from '@storybook/react';
 
+import React from 'react';
+window.React = React;
+
 const preview: Preview = {
   parameters: {
     controls: {

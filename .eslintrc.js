@@ -10,9 +10,9 @@ module.exports = {
     },
     'import/resolver': {
       alias: {
-        map: [['@', './src/']],
+        map: [['@', './src']],
+        extensions: ['.ts', '.tsx'],
       },
-      extensions: ['.ts', '.tsx'],
     },
   },
   extends: [
