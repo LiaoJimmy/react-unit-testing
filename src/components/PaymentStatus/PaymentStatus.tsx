@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -36,18 +36,22 @@ const PaymentStatus = ({ onPay, onRetry }: PaymentStatusProps) => {
     return (
       <>
         <Typography>{t('payment-completed')}</Typography>
-        <Button variant="contained" onClick={onPay}>
-          {t('confirm')}
-        </Button>
+        <Box marginTop="6px">
+          <Button variant="contained" onClick={onPay}>
+            {t('confirm')}
+          </Button>
+        </Box>
       </>
     );
   if (paymentStatus === PaymentStatusResult.Error)
     return (
       <>
         <Typography>{t('payment-failed')}</Typography>
-        <Button variant="contained" onClick={onRetry}>
-          {t('retry')}
-        </Button>
+        <Box marginTop="6px">
+          <Button variant="contained" onClick={onRetry}>
+            {t('retry')}
+          </Button>
+        </Box>
       </>
     );
 };
