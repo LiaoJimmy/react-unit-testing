@@ -1,21 +1,5 @@
-/**
- * @jest-environment jsdom
- */
-import '@testing-library/jest-dom';
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-
 import { render, screen } from '@testing-library/react';
 import PayNowButton from '../../../src/components/PayNowButton';
-
-i18n.use(initReactI18next).init({
-  resources: {},
-  lng: 'en',
-  fallbackLng: 'en',
-  interpolation: {
-    escapeValue: false,
-  },
-});
 
 describe('<PayNowButton />', () => {
   it('should render pay now button', () => {
