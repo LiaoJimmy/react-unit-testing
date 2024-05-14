@@ -4,9 +4,10 @@ interface Config {
   paymentStatus?: number;
 }
 
-const createMirageServer = (config?: Config) => {
+const createMirageServer = (config?: Config, environment = 'test') => {
   const { paymentStatus = 1 } = config || {};
   const mirageServer = createServer({
+    environment,
     routes() {
       this.namespace = 'api';
 

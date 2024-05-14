@@ -26,6 +26,7 @@ describe('<PayNowButton />', () => {
     const payNowButton = screen.getByText('pay-now');
     payNowButton.click();
     const confirmButton = await screen.findByText('confirm');
+    expect(onPay).not.toBeCalled();
 
     confirmButton.click();
 
