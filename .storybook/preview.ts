@@ -9,7 +9,6 @@ import createMirageServer from '../__mocks__/MirageServer';
 
 import React from 'react';
 window.React = React;
-createMirageServer();
 
 const preview: Preview = {
   parameters: {

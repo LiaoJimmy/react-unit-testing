@@ -1,20 +1,16 @@
-import { Response, createServer } from 'miragejs';
+import { createServer } from 'miragejs';
 
 interface Config {
-  paymentStatus: number;
-  paymentStatusErrorStatus?: number;
+  paymentStatus?: number;
 }
 
 const createMirageServer = (config?: Config) => {
-  const { paymentStatus = 1, paymentStatusErrorStatus } = config || {};
+  const { paymentStatus = 1 } = config || {};
   const mirageServer = createServer({
     routes() {
       this.namespace = 'api';
 
       this.get('/payment-status', () => {
-        if (paymentStatusErrorStatus) {
-          return new Response(paymentStatusErrorStatus);
-        }
         return {
           status: paymentStatus,
         };

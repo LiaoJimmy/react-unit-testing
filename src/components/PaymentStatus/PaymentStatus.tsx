@@ -10,7 +10,7 @@ const getPaymentStatus = async () => {
 
 const PaymentStatusResult = {
   Error: 0,
-  Paid: 1,
+  Success: 1,
 };
 
 interface PaymentStatusProps {
@@ -32,7 +32,7 @@ const PaymentStatus = ({ onPay, onRetry }: PaymentStatusProps) => {
   }, []);
 
   if (paymentStatus === undefined) return <CircularProgress />;
-  if (paymentStatus === PaymentStatusResult.Paid)
+  if (paymentStatus === PaymentStatusResult.Success)
     return (
       <>
         <Typography>{t('payment-completed')}</Typography>

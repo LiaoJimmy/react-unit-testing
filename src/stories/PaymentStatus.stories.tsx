@@ -1,6 +1,8 @@
 import PaymentStatus from '@/components/PaymentStatus';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import { fn } from '@storybook/test';
+import createMirageServer from '../../__mocks__/MirageServer';
+import { useEffect } from 'react';
 
 const meta = {
   title: 'Components/PaymentStatus',
@@ -10,8 +12,17 @@ const meta = {
 } satisfies Meta<typeof PaymentStatus>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
-  args: {},
+type Args = Parameters<typeof PaymentStatus>[0];
+
+export const Success = (args: Args) => {
+  const server = createMirageServer();
+  useEffect(() => () => server.shutdown());
+  return <PaymentStatus {...args} />;
+};
+
+export const Error = (args: Args) => {
+  const server = createMirageServer({ paymentStatus: 0 });
+  useEffect(() => () => server.shutdown());
+  return <PaymentStatus {...args} />;
 };
