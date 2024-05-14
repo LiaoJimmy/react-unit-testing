@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import createMirageServer from '../../../__mocks__/MirageServer';
 import PaymentStatus from '@/components/PaymentStatus';
 import { Server } from 'miragejs';
+import userEvent from '@testing-library/user-event';
 
 describe('<PaymentStatus />', () => {
   let server: Server;
@@ -30,7 +31,7 @@ describe('<PaymentStatus />', () => {
     expect(onPay).not.toBeCalled();
     const confirmButton = await screen.findByText('confirm');
 
-    confirmButton.click();
+    await userEvent.click(confirmButton);
 
     expect(onPay).toBeCalled();
   });
@@ -55,7 +56,7 @@ describe('<PaymentStatus />', () => {
     expect(onRetry).not.toBeCalled();
     const retryButton = await screen.findByText('retry');
 
-    retryButton.click();
+    await userEvent.click(retryButton);
 
     expect(onRetry).toBeCalled();
   });

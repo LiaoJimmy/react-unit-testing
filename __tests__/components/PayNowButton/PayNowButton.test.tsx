@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import PayNowButton from '../../../src/components/PayNowButton';
+import userEvent from '@testing-library/user-event';
 
 describe('<PayNowButton />', () => {
   it('should render pay now button', () => {
@@ -14,7 +15,7 @@ describe('<PayNowButton />', () => {
     render(<PayNowButton onPay={() => {}} />);
     const payNowButton = screen.getByText('pay-now');
 
-    payNowButton.click();
+    await userEvent.click(payNowButton);
 
     const dialogDescription = await screen.findByText('pay-description');
     expect(dialogDescription).toBeInTheDocument();
@@ -24,11 +25,11 @@ describe('<PayNowButton />', () => {
     const onPay = jest.fn();
     render(<PayNowButton onPay={onPay} />);
     const payNowButton = screen.getByText('pay-now');
-    payNowButton.click();
+    await userEvent.click(payNowButton);
     const confirmButton = await screen.findByText('confirm');
     expect(onPay).not.toBeCalled();
 
-    confirmButton.click();
+    await userEvent.click(confirmButton);
 
     expect(onPay).toBeCalled();
   });
