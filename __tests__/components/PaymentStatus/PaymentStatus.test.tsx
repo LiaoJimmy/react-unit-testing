@@ -28,8 +28,8 @@ describe('<PaymentStatus />', () => {
       paymentStatus: 1,
     });
     render(<PaymentStatus onPay={onPay} onRetry={() => {}} />);
-    expect(onPay).not.toBeCalled();
     const confirmButton = await screen.findByText('confirm');
+    expect(onPay).not.toBeCalled();
 
     await userEvent.click(confirmButton);
 
@@ -53,8 +53,8 @@ describe('<PaymentStatus />', () => {
       paymentStatus: 0,
     });
     render(<PaymentStatus onPay={() => {}} onRetry={onRetry} />);
-    expect(onRetry).not.toBeCalled();
     const retryButton = await screen.findByText('retry');
+    expect(onRetry).not.toBeCalled();
 
     await userEvent.click(retryButton);
 
