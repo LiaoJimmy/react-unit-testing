@@ -8,7 +8,6 @@
     "build": "webpack --config webpack/webpack.config.js --env env=prod",
     "test": "jest",
     "test:watch": "jest --watch --coverage=false",
-    "test:coverage": "jest --coverage",
     "lint": "eslint \"./src/**/*.{js,jsx,ts,tsx,json}\"",
     "lint:fix": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
     "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,css,scss,md,json}\"",
