@@ -3,6 +3,7 @@ import path from 'path';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+
   addons: [
     '@storybook/addon-webpack5-compiler-swc',
     '@storybook/addon-onboarding',
@@ -11,19 +12,21 @@ const config: StorybookConfig = {
     '@chromatic-com/storybook',
     '@storybook/addon-interactions',
   ],
+
   framework: {
     name: '@storybook/react-webpack5',
     options: {},
   },
-  docs: {
-    autodocs: 'tag',
-  },
+
+  docs: {},
+
   webpackFinal: async (config) => {
     (config.resolve as any).alias = {
       ['@']: [path.resolve(__dirname, '../src')],
     };
     return config;
   },
+
   babel: async (options) => ({
     ...options,
     presets: [
@@ -31,5 +34,9 @@ const config: StorybookConfig = {
       ['@babel/preset-env', ['@babel/preset-react', { runtime: 'automatic' }]],
     ],
   }),
+
+  typescript: {
+    reactDocgen: 'react-docgen-typescript'
+  }
 };
 export default config;
