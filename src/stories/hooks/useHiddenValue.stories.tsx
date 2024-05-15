@@ -1,5 +1,6 @@
 import useHiddenValue from '@/hooks/useHiddenValue';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
+import { useState } from 'react';
 
 const meta = {
   title: 'hooks/useHiddenValue',
@@ -7,21 +8,27 @@ const meta = {
 
 export default meta;
 
-interface HooksTemplateProps {
-  defaultHide: boolean;
-}
-const Template = ({ defaultHide }: HooksTemplateProps) => {
-  const [value, display, hide] = useHiddenValue('Jimmy Liao', defaultHide);
+export const DefaultHidden = () => {
+  const [originValue, setOriginValue] = useState('Jimmy Liao');
+  const [value, display, hide] = useHiddenValue(originValue);
+
+  const handleOriginValueChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setOriginValue(event.target.value);
+  };
 
   return (
-    <>
-      <Typography>{value}</Typography>
-      <Box
-        display="inline-grid"
-        gridTemplateColumns="auto auto"
-        gap="6px"
-        marginTop="6px"
-      >
+    <Box display="grid" gap="16px" width="300px">
+      <TextField
+        id="origin-value"
+        label="Origin Value"
+        variant="standard"
+        value={originValue}
+        onChange={handleOriginValueChange}
+      />
+      <Typography>Value: {value}</Typography>
+      <Box display="inline-grid" gridTemplateColumns="1fr 1fr" gap="6px">
         <Button variant="contained" onClick={display}>
           Display
         </Button>
@@ -29,14 +36,6 @@ const Template = ({ defaultHide }: HooksTemplateProps) => {
           Hide
         </Button>
       </Box>
-    </>
+    </Box>
   );
-};
-
-export const DefaultHidden = () => {
-  return <Template defaultHide={true} />;
-};
-
-export const DefaultDisplay = () => {
-  return <Template defaultHide={false} />;
 };

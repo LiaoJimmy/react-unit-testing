@@ -1,14 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const useHiddenValue = (
-  originValue: string,
-  defaultHidden = true
+  originValue: string
 ): [value: string, display: () => void, hide: () => void] => {
   const hiddenValue = originValue
     .split('')
     .map(() => '•')
     .join('');
-  const [isHidden, setIsHidden] = useState(defaultHidden);
+  const [isHidden, setIsHidden] = useState(false);
 
   const value = isHidden ? hiddenValue : originValue;
 
@@ -19,6 +18,10 @@ const useHiddenValue = (
   const hide = () => {
     setIsHidden(true);
   };
+
+  useEffect(() => {
+    setIsHidden(true);
+  }, [originValue]);
 
   return [value, display, hide];
 };
