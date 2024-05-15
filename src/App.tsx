@@ -1,11 +1,7 @@
-import HomePage from '@/components/HomePage';
+import { Typography } from '@mui/material';
 
 const App = () => {
-  return (
-    <div id="App">
-      <HomePage />
-    </div>
-  );
+  return <Typography>App</Typography>;
 };
 
 export default App;
