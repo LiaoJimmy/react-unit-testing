@@ -17,6 +17,7 @@ const createMirageServer = (config?: Config, environment = 'test') => {
         };
       });
     },
+    timing: 1000,
   });
 
   return mirageServer;
