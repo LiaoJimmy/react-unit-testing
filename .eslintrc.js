@@ -28,7 +28,7 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:storybook/recommended',
   ],
-  plugins: ['react', 'jest'],
+  plugins: ['react', 'jest', 'testing-library', 'jest-dom'],
   rules: {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],

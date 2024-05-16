@@ -1,9 +1,9 @@
 {
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "pay-now": "Pay Now",
-    "retry": "Retry",
-    "pay-description": "Pay and get your battery service",
-    "payment-completed": "Payment Completed",
-    "payment-failed": "Payment Failed"
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "pay-now": "Pay Now",
+  "retry": "Retry",
+  "pay-description": "Pay and get your battery service",
+  "payment-completed": "Payment Completed",
+  "payment-failed": "Payment Failed"
 }
