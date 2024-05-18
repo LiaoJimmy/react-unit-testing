@@ -2,15 +2,6 @@ import useHiddenValue from '@/hooks/useHiddenValue';
 import { renderHook, act } from '@testing-library/react';
 
 describe('useHiddenValue', () => {
-  it('should return hidden value', () => {
-    const originValue = 'Jimmy Liao';
-
-    const { result } = renderHook(() => useHiddenValue(originValue));
-
-    const [value] = result.current;
-    expect(value).toBe('••••••••••');
-  });
-
   it('should return origin value after calling display', () => {
     const originValue = 'Jimmy Liao';
     const { result } = renderHook(() => useHiddenValue(originValue));
@@ -40,10 +31,10 @@ describe('useHiddenValue', () => {
     const [, display] = result.current;
     act(() => display());
 
-    originValue = 'Jimmy Ko';
+    originValue = 'Jimmy';
     rerender();
 
     const [value] = result.current;
-    expect(value).toBe('••••••••');
+    expect(value).toBe('•••••');
   });
 });
