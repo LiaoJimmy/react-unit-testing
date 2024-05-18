@@ -3,10 +3,7 @@ import { useEffect, useState } from 'react';
 const useHiddenValue = (
   originValue: string
 ): [value: string, display: () => void, hide: () => void] => {
-  const hiddenValue = originValue
-    .split('')
-    .map(() => '•')
-    .join('');
+  const hiddenValue = '•'.repeat(originValue.length);
   const [isHidden, setIsHidden] = useState(false);
 
   const value = isHidden ? hiddenValue : originValue;
