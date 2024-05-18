@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import PayNowButton from '../../../src/components/PayNowButton';
+import PayNowButton from '@/components/PayNowButton';
 import userEvent from '@testing-library/user-event';
 
 describe('<PayNowButton />', () => {

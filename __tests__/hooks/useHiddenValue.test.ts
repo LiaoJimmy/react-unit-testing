@@ -16,9 +16,7 @@ describe('useHiddenValue', () => {
     const { result } = renderHook(() => useHiddenValue(originValue));
     const [, display] = result.current;
 
-    act(() => {
-      display();
-    });
+    act(() => display());
 
     const [value] = result.current;
     expect(value).toBe(originValue);
@@ -28,13 +26,9 @@ describe('useHiddenValue', () => {
     const originValue = 'Jimmy Liao';
     const { result } = renderHook(() => useHiddenValue(originValue));
     const [, display, hide] = result.current;
-    act(() => {
-      display();
-    });
+    act(() => display());
 
-    act(() => {
-      hide();
-    });
+    act(() => hide());
 
     const [value] = result.current;
     expect(value).toBe('••••••••••');
@@ -44,9 +38,7 @@ describe('useHiddenValue', () => {
     let originValue = 'Jimmy Liao';
     const { result, rerender } = renderHook(() => useHiddenValue(originValue));
     const [, display] = result.current;
-    act(() => {
-      display();
-    });
+    act(() => display());
 
     originValue = 'Jimmy Ko';
     rerender();
