@@ -1,7 +1,7 @@
 import { createServer } from 'miragejs';
 
 interface Config {
-  paymentStatus?: number;
+  paymentStatus?: 1 | 0;
 }
 
 const createMirageServer = (config?: Config, environment = 'test') => {
