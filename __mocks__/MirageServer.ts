@@ -16,6 +16,23 @@ const createMirageServer = (config?: Config, environment = 'test') => {
           status: paymentStatus,
         };
       });
+
+      this.get('/payment-methods', () => {
+        return [
+          {
+            id: 1,
+            name: 'Credit Card',
+          },
+          {
+            id: 2,
+            name: 'Line Pay',
+          },
+          {
+            id: 3,
+            name: 'Apple Pay',
+          },
+        ];
+      });
     },
     timing: 1000,
   });
