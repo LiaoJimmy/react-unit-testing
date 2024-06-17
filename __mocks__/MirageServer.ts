@@ -17,7 +17,7 @@ const createMirageServer = (config?: Config, environment = 'test') => {
         };
       });
 
-      this.get('/payment-methods', () => {
+      this.get('/payment-methods/pre-pay', () => {
         return [
           {
             id: 1,
@@ -29,7 +29,39 @@ const createMirageServer = (config?: Config, environment = 'test') => {
           },
           {
             id: 3,
+            name: 'Jkopay',
+          },
+          {
+            id: 4,
             name: 'Apple Pay',
+          },
+        ];
+      });
+      this.get('/payment-methods/post-pay', () => {
+        return [
+          {
+            id: 1,
+            name: 'Credit Card',
+          },
+          {
+            id: 2,
+            name: 'Line Pay',
+          },
+          {
+            id: 3,
+            name: 'Jkopay',
+          },
+          {
+            id: 4,
+            name: 'Apple Pay',
+          },
+          {
+            id: 5,
+            name: 'ATM',
+          },
+          {
+            id: 6,
+            name: 'Convenience Store',
           },
         ];
       });

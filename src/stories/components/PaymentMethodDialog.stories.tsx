@@ -1,37 +1,59 @@
 import PaymentMethodDialog from '@/components/PaymentMethodDialog';
+import { Button } from '@mui/material';
 import type { Meta } from '@storybook/react';
 import { fn } from '@storybook/test';
+import { useEffect, useState } from 'react';
+import createMirageServer from '../../../__mocks__/MirageServer';
 
 const meta = {
   title: 'Components/PaymentMethodDialog',
   component: PaymentMethodDialog,
   tags: ['autodocs'],
-  args: { onClose: fn(), onPay: fn() },
+  args: { onPay: fn() },
 } satisfies Meta<typeof PaymentMethodDialog>;
 
 export default meta;
 
 type Args = Parameters<typeof PaymentMethodDialog>[0];
 
-export const Primary = (args: Args) => {
+export const PrePaid = (args: Args) => {
+  const [open, setOpen] = useState(false);
+
+  const toggleOpen = () => setOpen(!open);
+
+  const server = createMirageServer(undefined, 'development');
+  useEffect(() => () => server.shutdown());
+
   return (
-    <PaymentMethodDialog
-      {...args}
-      open
-      paymentMethods={[
-        {
-          id: 1,
-          name: 'Credit Card',
-        },
-        {
-          id: 2,
-          name: 'Line Pay',
-        },
-        {
-          id: 3,
-          name: 'Apple Pay',
-        },
-      ]}
-    />
+    <>
+      <Button onClick={toggleOpen}>PrePay Payment</Button>
+      <PaymentMethodDialog
+        {...args}
+        open={open}
+        isPrePaid
+        onClose={toggleOpen}
+      />
+    </>
+  );
+};
+
+export const PostPaid = (args: Args) => {
+  const [open, setOpen] = useState(false);
+
+  const toggleOpen = () => setOpen(!open);
+
+  const server = createMirageServer(undefined, 'development');
+  useEffect(() => () => server.shutdown());
+
+  return (
+    <>
+      <Button onClick={toggleOpen}>PrePay Payment</Button>
+      <PaymentMethodDialog
+        {...args}
+        open={open}
+        isPrePaid={false}
+        onClose={toggleOpen}
+      />
+    </>
   );
 };
