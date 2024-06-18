@@ -1,12 +1,8 @@
+import { getPaymentStatus } from '@/api/PaymentStatus';
 import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
-const getPaymentStatus = async () => {
-  const response = await axios.get('/api/payment-status');
-  return response.data;
-};
 
 const PaymentStatusResult = {
   Error: 0,

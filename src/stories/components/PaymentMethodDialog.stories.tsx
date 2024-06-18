@@ -30,7 +30,7 @@ export const PrePaid = (args: Args) => {
       <PaymentMethodDialog
         {...args}
         open={open}
-        isPrePaid
+        isPrePay
         onClose={toggleOpen}
       />
     </>
@@ -47,11 +47,11 @@ export const PostPaid = (args: Args) => {
 
   return (
     <>
-      <Button onClick={toggleOpen}>PrePay Payment</Button>
+      <Button onClick={toggleOpen}>PostPay Payment</Button>
       <PaymentMethodDialog
         {...args}
         open={open}
-        isPrePaid={false}
+        isPrePay={false}
         onClose={toggleOpen}
       />
     </>
