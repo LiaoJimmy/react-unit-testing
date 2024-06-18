@@ -3,15 +3,36 @@ import PaymentMethodDialog from '@/components/PaymentMethodDialog';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+const getPaymentMethod = async () => {
+  return await new Promise<PaymentMethod[]>((resolve) =>
+    resolve([
+      { id: 1, name: 'Credit Card' },
+      { id: 2, name: 'Line Pay' },
+    ])
+  );
+};
+
 describe('<PaymentMethodDialog />', () => {
-  it('should render by paymentMethods', async () => {
+  it('should display payment methods', async () => {
+    render(
+      <PaymentMethodDialog
+        open
+        getPaymentMethod={getPaymentMethod}
+        onClose={() => {}}
+        onPay={() => {}}
+      />
+    );
+
+    const creditCard = await screen.findByText('Credit Card');
+    const linePay = await screen.findByText('Line Pay');
+
+    expect(creditCard).toBeInTheDocument();
+    expect(linePay).toBeInTheDocument();
+  });
+
+  it('should call onPay after clicking a payment method', async () => {
     const onPay = jest.fn();
     const CREDIT_CARD_ID = 1;
-    const getPaymentMethod = async () => {
-      return await new Promise<PaymentMethod[]>((resolve) =>
-        resolve([{ id: CREDIT_CARD_ID, name: 'Credit Card' }])
-      );
-    };
     render(
       <PaymentMethodDialog
         open
