@@ -1,6 +1,5 @@
 import { getPaymentStatus } from '@/api/PaymentStatus';
 import { Box, Button, CircularProgress, Typography } from '@mui/material';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 

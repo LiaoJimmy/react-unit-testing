@@ -4,6 +4,7 @@ import type { Meta } from '@storybook/react';
 import { fn } from '@storybook/test';
 import { useEffect, useState } from 'react';
 import createMirageServer from '../../../__mocks__/MirageServer';
+import { getPostPay, getPrePay } from '@/api/PaymentMethod';
 
 const meta = {
   title: 'Components/PaymentMethodDialog',
@@ -30,7 +31,7 @@ export const PrePaid = (args: Args) => {
       <PaymentMethodDialog
         {...args}
         open={open}
-        isPrePay
+        getPaymentMethod={getPrePay}
         onClose={toggleOpen}
       />
     </>
@@ -51,7 +52,7 @@ export const PostPaid = (args: Args) => {
       <PaymentMethodDialog
         {...args}
         open={open}
-        isPrePay={false}
+        getPaymentMethod={getPostPay}
         onClose={toggleOpen}
       />
     </>
