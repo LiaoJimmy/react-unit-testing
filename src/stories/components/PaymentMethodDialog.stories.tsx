@@ -17,7 +17,7 @@ export default meta;
 
 type Args = Parameters<typeof PaymentMethodDialog>[0];
 
-export const PrePaid = (args: Args) => {
+export const PrePay = (args: Args) => {
   const [open, setOpen] = useState(false);
 
   const toggleOpen = () => setOpen(!open);
@@ -38,7 +38,7 @@ export const PrePaid = (args: Args) => {
   );
 };
 
-export const PostPaid = (args: Args) => {
+export const PostPost = (args: Args) => {
   const [open, setOpen] = useState(false);
 
   const toggleOpen = () => setOpen(!open);
