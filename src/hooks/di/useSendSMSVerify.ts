@@ -8,7 +8,7 @@ interface Toast {
   error: (message: string) => void;
 }
 
-const sendSMSVerify = (phoneNumber: string, toast: Toast) => {
+export const useDISendSMSVerify = (phoneNumber: string, toast: Toast) => {
   const [t] = useTranslation();
   const [disabled, setDisabled] = useState(false);
 
@@ -22,11 +22,11 @@ const sendSMSVerify = (phoneNumber: string, toast: Toast) => {
     }
   };
 
-  return [send, disabled] as const;
+  return { send, disabled };
 };
 
 const useSendSMSVerify = (phoneNumber: string) => {
-  return sendSMSVerify(phoneNumber, ReactToastify);
+  return useDISendSMSVerify(phoneNumber, ReactToastify);
 };
 
 export default useSendSMSVerify;

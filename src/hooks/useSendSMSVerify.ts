@@ -17,7 +17,7 @@ const useSendSMSVerify = (phoneNumber: string) => {
     }
   };
 
-  return [send, disabled] as const;
+  return { send, disabled };
 };
 
 export default useSendSMSVerify;

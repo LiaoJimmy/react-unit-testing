@@ -14,8 +14,8 @@ export default meta;
 
 export const Primary = () => {
   const [t] = useTranslation();
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [send, disabled] = useSendSMSVerify(phoneNumber);
+  const [phoneNumber, setPhoneNumber] = useState('+8886954658745');
+  const { send, disabled } = useSendSMSVerify(phoneNumber);
 
   useEffect(() => {
     createMirageServer({}, 'development');
