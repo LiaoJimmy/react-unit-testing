@@ -36,12 +36,13 @@ export const Primary = () => {
     >
       <TextField
         fullWidth
+        required
         label="Phone number"
         type="tel"
         value={phoneNumber}
         onChange={handlePhoneNumberChange}
       />
-      <Button onClick={send} disabled={disabled}>
+      <Button onClick={send} disabled={disabled || phoneNumber.length < 1}>
         {t('send-sms-verify')}
       </Button>
       <ToastContainer theme="dark" position="bottom-center" />
