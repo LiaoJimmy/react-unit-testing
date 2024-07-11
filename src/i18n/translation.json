@@ -5,5 +5,8 @@
   "retry": "Retry",
   "pay-description": "Pay and get your battery service",
   "payment-completed": "Payment Completed",
-  "payment-failed": "Payment Failed"
+  "payment-failed": "Payment Failed",
+  "send-sms-verify": "Send SMS verification code",
+  "send-sms-verify-success": "Send SMS verification code successfully",
+  "send-sms-verify-failed": "Send SMS verification code failed"
 }

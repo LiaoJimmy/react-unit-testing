@@ -1,7 +1,8 @@
-import { createServer } from 'miragejs';
+import { createServer, Response } from 'miragejs';
 
 interface Config {
   paymentStatus?: 1 | 0;
+  sendSMSVerifyStatus?: number;
 }
 
 const createMirageServer = (config?: Config, environment = 'test') => {
@@ -37,6 +38,7 @@ const createMirageServer = (config?: Config, environment = 'test') => {
           },
         ];
       });
+
       this.get('/payment-methods/post-pay', () => {
         return [
           {
@@ -65,8 +67,12 @@ const createMirageServer = (config?: Config, environment = 'test') => {
           },
         ];
       });
+
+      this.post('sms/verify', () => {
+        return new Response(config?.sendSMSVerifyStatus || 200);
+      });
     },
-    timing: 1000,
+    timing: 500,
   });
 
   return mirageServer;
