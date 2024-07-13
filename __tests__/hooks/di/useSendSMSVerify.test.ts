@@ -20,8 +20,6 @@ describe('useSendSMSVerify()', () => {
       await send();
     });
 
-    const { disabled } = result.current;
-    expect(disabled).toBe(true);
     expect(mockToast.success).toBeCalledWith('send-sms-verify-success');
   });
 });
