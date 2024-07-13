@@ -2,15 +2,30 @@ import useSendSMSVerify from '@/hooks/useSendSMSVerify';
 import { act, renderHook } from '@testing-library/react';
 import createMirageServer from '../../__mocks__/MirageServer';
 import { toast } from 'react-toastify';
+import { Server } from 'miragejs';
 
+// Method 2. Mocked by jest.fn()
 describe('useSendSMSVerify()', () => {
-  // Method 2. Mocked by jest.fn()
-  it('should return send function and disabled state', async () => {
-    createMirageServer({}, 'test');
+  let server: Server;
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+    server.shutdown();
+  });
+
+  const arrangeSendSMSVerify = () => {
+    server = createMirageServer({}, 'test');
     jest.mock('react-toastify');
-    const mockSuccess = jest.fn();
-    toast.success = mockSuccess;
     const { result } = renderHook(() => useSendSMSVerify('+8886954658745'));
+    return result;
+  };
+
+  it('should return send function and disabled state', async () => {
+    const result = arrangeSendSMSVerify();
+    const mockSuccess = jest.fn();
+    const mockError = jest.fn();
+    toast.success = mockSuccess;
+    toast.error = mockError;
     const { send } = result.current;
 
     await act(async () => {
@@ -18,5 +33,18 @@ describe('useSendSMSVerify()', () => {
     });
 
     expect(mockSuccess).toBeCalledWith('send-sms-verify-success');
+    expect(mockError).not.toBeCalled();
+  });
+
+  it('should return send function and disabled state', async () => {
+    const result = arrangeSendSMSVerify();
+    const { send } = result.current;
+
+    await act(async () => {
+      await send();
+    });
+
+    const { disabled } = result.current;
+    expect(disabled).toBe(true);
   });
 });
