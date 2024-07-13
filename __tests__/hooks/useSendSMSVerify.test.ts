@@ -8,11 +8,6 @@ import { Server } from 'miragejs';
 describe('useSendSMSVerify()', () => {
   let server: Server;
 
-  afterEach(() => {
-    jest.restoreAllMocks();
-    server.shutdown();
-  });
-
   const arrangeSendSMSVerify = () => {
     server = createMirageServer({}, 'test');
     jest.mock('react-toastify');
@@ -20,7 +15,12 @@ describe('useSendSMSVerify()', () => {
     return result;
   };
 
-  it('should return send function and disabled state', async () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+    server.shutdown();
+  });
+
+  it('should return send function and toast success message', async () => {
     const result = arrangeSendSMSVerify();
     const mockSuccess = jest.fn();
     const mockError = jest.fn();
