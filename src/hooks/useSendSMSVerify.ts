@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
+const DISABLED_TIME = 60 * 1000;
+
 const useSendSMSVerify = (phoneNumber: string) => {
   const [t] = useTranslation();
   const [disabled, setDisabled] = useState(false);
@@ -12,6 +14,9 @@ const useSendSMSVerify = (phoneNumber: string) => {
       setDisabled(true);
       await verify(phoneNumber);
       toast.success(t('send-sms-verify-success'));
+      setTimeout(() => {
+        setDisabled(false);
+      }, DISABLED_TIME);
     } catch (error) {
       toast.error(t('send-sms-verify-failed'));
     }
