@@ -10,7 +10,6 @@ describe('useSendSMSVerify()', () => {
 
   const arrangeSendSMSVerify = () => {
     server = createMirageServer({}, 'test');
-    jest.mock('react-toastify');
     const { result } = renderHook(() => useSendSMSVerify('+8886954658745'));
     return result;
   };
@@ -22,10 +21,8 @@ describe('useSendSMSVerify()', () => {
 
   it('should return send function and toast success message', async () => {
     const result = arrangeSendSMSVerify();
-    const mockSuccess = jest.fn();
-    const mockError = jest.fn();
-    toast.success = mockSuccess;
-    toast.error = mockError;
+    const mockSuccess = jest.spyOn(toast, 'success');
+    const mockError = jest.spyOn(toast, 'error');
     const { send } = result.current;
 
     await act(async () => {
