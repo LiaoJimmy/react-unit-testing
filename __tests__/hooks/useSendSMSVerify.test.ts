@@ -11,7 +11,14 @@ describe('useSendSMSVerify()', () => {
   const arrangeSendSMSVerify = () => {
     server = createMirageServer({}, 'test');
     const { result } = renderHook(() => useSendSMSVerify('+8886954658745'));
-    return result;
+    const { send } = result.current;
+
+    const actionSend = () =>
+      act(async () => {
+        await send();
+      });
+
+    return { result, actionSend };
   };
 
   afterEach(() => {
@@ -20,26 +27,20 @@ describe('useSendSMSVerify()', () => {
   });
 
   it('should return send function and toast success message', async () => {
-    const result = arrangeSendSMSVerify();
+    const { actionSend } = arrangeSendSMSVerify();
     const mockSuccess = jest.spyOn(toast, 'success');
     const mockError = jest.spyOn(toast, 'error');
-    const { send } = result.current;
 
-    await act(async () => {
-      await send();
-    });
+    await actionSend();
 
     expect(mockSuccess).toBeCalledWith('send-sms-verify-success');
     expect(mockError).not.toBeCalled();
   });
 
   it('should return send function and disabled state', async () => {
-    const result = arrangeSendSMSVerify();
-    const { send } = result.current;
+    const { result, actionSend } = arrangeSendSMSVerify();
 
-    await act(async () => {
-      await send();
-    });
+    await actionSend();
 
     const { disabled } = result.current;
     expect(disabled).toBe(true);
