@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import createMirageServer from '../../../__mocks__/MirageServer';
 import PaymentStatus from '@/components/PaymentStatus';
 import { Server } from 'miragejs';
-import userEvent from '@testing-library/user-event';
+import { setup } from '../../UserEvent';
 
 describe('<PaymentStatus />', () => {
   let server: Server;
@@ -15,7 +15,7 @@ describe('<PaymentStatus />', () => {
     server = createMirageServer({
       paymentStatus: 1,
     });
-    render(<PaymentStatus onPay={() => {}} onRetry={() => {}} />);
+    setup(<PaymentStatus onPay={() => {}} onRetry={() => {}} />);
 
     const confirmButton = await screen.findByText('confirm');
 
@@ -27,11 +27,11 @@ describe('<PaymentStatus />', () => {
     server = createMirageServer({
       paymentStatus: 1,
     });
-    render(<PaymentStatus onPay={onPay} onRetry={() => {}} />);
+    const { user } = setup(<PaymentStatus onPay={onPay} onRetry={() => {}} />);
     const confirmButton = await screen.findByText('confirm');
     expect(onPay).not.toBeCalled();
 
-    await userEvent.click(confirmButton);
+    await user.click(confirmButton);
 
     expect(onPay).toBeCalled();
   });
@@ -40,7 +40,7 @@ describe('<PaymentStatus />', () => {
     server = createMirageServer({
       paymentStatus: 0,
     });
-    render(<PaymentStatus onPay={() => {}} onRetry={() => {}} />);
+    setup(<PaymentStatus onPay={() => {}} onRetry={() => {}} />);
 
     const retryButton = await screen.findByText('retry');
 
@@ -52,11 +52,13 @@ describe('<PaymentStatus />', () => {
     server = createMirageServer({
       paymentStatus: 0,
     });
-    render(<PaymentStatus onPay={() => {}} onRetry={onRetry} />);
+    const { user } = setup(
+      <PaymentStatus onPay={() => {}} onRetry={onRetry} />
+    );
     const retryButton = await screen.findByText('retry');
     expect(onRetry).not.toBeCalled();
 
-    await userEvent.click(retryButton);
+    await user.click(retryButton);
 
     expect(onRetry).toBeCalled();
   });

@@ -1,7 +1,7 @@
 import { PaymentMethod } from '@/api/PaymentMethod';
 import PaymentMethodDialog from '@/components/PaymentMethodDialog';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { screen } from '@testing-library/react';
+import { setup } from '../../UserEvent';
 
 const getPaymentMethod = async () => {
   return await new Promise<PaymentMethod[]>((resolve) =>
@@ -14,7 +14,7 @@ const getPaymentMethod = async () => {
 
 describe('<PaymentMethodDialog />', () => {
   it('should display payment methods', async () => {
-    render(
+    setup(
       <PaymentMethodDialog
         open
         getPaymentMethod={getPaymentMethod}
@@ -33,7 +33,7 @@ describe('<PaymentMethodDialog />', () => {
   it('should call onPay after clicking a payment method', async () => {
     const onPay = jest.fn();
     const CREDIT_CARD_ID = 1;
-    render(
+    const { user } = setup(
       <PaymentMethodDialog
         open
         getPaymentMethod={getPaymentMethod}
@@ -44,7 +44,7 @@ describe('<PaymentMethodDialog />', () => {
     const creditCard = await screen.findByText('Credit Card');
     expect(onPay).not.toHaveBeenCalled();
 
-    await userEvent.click(creditCard);
+    await user.click(creditCard);
 
     expect(onPay).toHaveBeenCalledWith(1);
     expect(onPay).toHaveBeenCalledWith(CREDIT_CARD_ID);
