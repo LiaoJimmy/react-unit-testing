@@ -8,8 +8,8 @@ import { Server } from 'miragejs';
 describe('useSendSMSVerify()', () => {
   let server: Server;
 
-  const arrangeSendSMSVerify = () => {
-    server = createMirageServer({}, 'test');
+  const arrangeSendSMSVerify = (sendSMSVerifyStatus?: number) => {
+    server = createMirageServer({ sendSMSVerifyStatus }, 'test');
     const { result } = renderHook(() => useSendSMSVerify('+8886954658745'));
     const { send } = result.current;
 
@@ -23,6 +23,7 @@ describe('useSendSMSVerify()', () => {
 
   afterEach(() => {
     jest.restoreAllMocks();
+    jest.useRealTimers();
     server.shutdown();
   });
 
@@ -37,6 +38,17 @@ describe('useSendSMSVerify()', () => {
     expect(mockError).not.toBeCalled();
   });
 
+  it('should enabled button after sending scuccessfully and passing 60 seconds', async () => {
+    jest.useFakeTimers({ advanceTimers: true });
+    const { result, actionSend } = arrangeSendSMSVerify();
+    await actionSend();
+
+    await jest.advanceTimersByTimeAsync(60 * 1000);
+
+    const { disabled } = result.current;
+    expect(disabled).toBe(false);
+  });
+
   it('should return send function and disabled state', async () => {
     const { result, actionSend } = arrangeSendSMSVerify();
 
@@ -44,5 +56,25 @@ describe('useSendSMSVerify()', () => {
 
     const { disabled } = result.current;
     expect(disabled).toBe(true);
+  });
+
+  it('should return send function and toast error message after failed', async () => {
+    const { actionSend } = arrangeSendSMSVerify(400);
+    const mockSuccess = jest.spyOn(toast, 'success');
+    const mockError = jest.spyOn(toast, 'error');
+
+    await actionSend();
+
+    expect(mockSuccess).not.toBeCalled();
+    expect(mockError).toBeCalledWith('send-sms-verify-failed');
+  });
+
+  it('should return send function and enabled state after failed', async () => {
+    const { result, actionSend } = arrangeSendSMSVerify(400);
+
+    await actionSend();
+
+    const { disabled } = result.current;
+    expect(disabled).toBe(false);
   });
 });

@@ -18,6 +18,7 @@ const useSendSMSVerify = (phoneNumber: string) => {
         setDisabled(false);
       }, DISABLED_TIME);
     } catch (error) {
+      setDisabled(false);
       toast.error(t('send-sms-verify-failed'));
     }
   };
