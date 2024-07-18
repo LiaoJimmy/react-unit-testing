@@ -56,8 +56,8 @@ describe('useSendSMSVerify()', () => {
       const { result, actionSend } = arrangeSendSMSVerify();
       await actionSend();
 
-      await act(async () => {
-        await jest.advanceTimersByTimeAsync(60 * 1000);
+      act(() => {
+        jest.advanceTimersByTime(60 * 1000);
       });
 
       const { disabled } = result.current;
