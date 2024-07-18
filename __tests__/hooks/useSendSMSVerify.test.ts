@@ -4,7 +4,7 @@ import createMirageServer from '../../__mocks__/MirageServer';
 import { toast } from 'react-toastify';
 import { Server } from 'miragejs';
 
-// Method 2. Mocked by jest.fn()
+// Method 2. Mocked by jest.spyOn()
 describe('useSendSMSVerify()', () => {
   let server: Server;
 
