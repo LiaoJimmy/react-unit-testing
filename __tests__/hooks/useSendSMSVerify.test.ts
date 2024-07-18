@@ -27,7 +27,7 @@ describe('useSendSMSVerify()', () => {
     server.shutdown();
   });
 
-  it('should return send function and toast success message', async () => {
+  it('should send SMS and toast success message', async () => {
     const { actionSend } = arrangeSendSMSVerify();
     const mockSuccess = jest.spyOn(toast, 'success');
     const mockError = jest.spyOn(toast, 'error');
@@ -38,18 +38,20 @@ describe('useSendSMSVerify()', () => {
     expect(mockError).not.toBeCalled();
   });
 
-  it('should enabled button after sending scuccessfully and passing 60 seconds', async () => {
+  it('should send SMS, passing 60 seconds and button is enabled', async () => {
     jest.useFakeTimers({ advanceTimers: true });
     const { result, actionSend } = arrangeSendSMSVerify();
     await actionSend();
 
-    await jest.advanceTimersByTimeAsync(60 * 1000);
+    await act(async () => {
+      await jest.advanceTimersByTimeAsync(60 * 1000);
+    });
 
     const { disabled } = result.current;
     expect(disabled).toBe(false);
   });
 
-  it('should return send function and disabled state', async () => {
+  it('should send SMS and disable button', async () => {
     const { result, actionSend } = arrangeSendSMSVerify();
 
     await actionSend();
@@ -58,7 +60,7 @@ describe('useSendSMSVerify()', () => {
     expect(disabled).toBe(true);
   });
 
-  it('should return send function and toast error message after failed', async () => {
+  it('should send SMS failed and toast error message', async () => {
     const { actionSend } = arrangeSendSMSVerify(400);
     const mockSuccess = jest.spyOn(toast, 'success');
     const mockError = jest.spyOn(toast, 'error');
@@ -69,7 +71,7 @@ describe('useSendSMSVerify()', () => {
     expect(mockError).toBeCalledWith('send-sms-verify-failed');
   });
 
-  it('should return send function and enabled state after failed', async () => {
+  it('should send SMS failed and enable button', async () => {
     const { result, actionSend } = arrangeSendSMSVerify(400);
 
     await actionSend();
