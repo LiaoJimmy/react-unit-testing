@@ -2,15 +2,24 @@ import useSendSMSVerify from '@/hooks/useSendSMSVerify';
 import { act, renderHook } from '@testing-library/react';
 import { toast } from 'react-toastify';
 import { verify } from '@/api/SMS';
+// import * as SMS from '@/api/SMS';
 
 jest.mock('@/api/SMS', () => ({
   verify: jest.fn(),
 }));
+// jest.mock('@/api/SMS', () => ({
+//   __esModule: true,
+//   default: jest.fn(),
+// }));
 
 describe('useSendSMSVerify()', () => {
   const stubVerifyResolved = () => (verify as jest.Mock).mockResolvedValue({});
+  // const stubVerifyResolved = () =>
+  //   (SMS.default as jest.Mock).mockResolvedValue({});
 
   const stubVerifyRejected = () => (verify as jest.Mock).mockRejectedValue({});
+  // const stubVerifyRejected = () =>
+  //   (SMS.default as jest.Mock).mockRejectedValue({});
 
   const arrangeSendSMSVerify = () => {
     const { result } = renderHook(() => useSendSMSVerify('+8886954658745'));
